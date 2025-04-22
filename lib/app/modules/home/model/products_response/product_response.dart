@@ -42,6 +42,7 @@ class Product {
   final double? price;
   final double? discountPercentage;
   final double? rating;
+  final List<Review>? reviews;
   final String? availabilityStatus;
   final List<String>? images;
   final String? thumbnail;
@@ -52,6 +53,7 @@ class Product {
     this.price,
     this.discountPercentage,
     this.rating,
+    this.reviews,
     this.availabilityStatus,
     this.images,
     this.thumbnail,
@@ -63,6 +65,7 @@ class Product {
     price: json["price"]?.toDouble(),
     discountPercentage: json["discountPercentage"]?.toDouble(),
     rating: json["rating"]?.toDouble(),
+    reviews: json["reviews"] == null ? [] : List<Review>.from(json["reviews"]!.map((x) => Review.fromJson(x))),
     availabilityStatus: json["availabilityStatus"],
     images: json["images"] == null ? [] : List<String>.from(json["images"]!.map((x) => x)),
     thumbnail: json["thumbnail"],
@@ -74,8 +77,41 @@ class Product {
     "price": price,
     "discountPercentage": discountPercentage,
     "rating": rating,
+    "reviews": reviews == null ? [] : List<dynamic>.from(reviews!.map((x) => x.toJson())),
     "availabilityStatus": availabilityStatus,
     "images": images == null ? [] : List<dynamic>.from(images!.map((x) => x)),
     "thumbnail": thumbnail,
+  };
+}
+
+class Review {
+  final int? rating;
+  final String? comment;
+  final String? date;
+  final String? reviewerName;
+  final String? reviewerEmail;
+
+  Review({
+    this.rating,
+    this.comment,
+    this.date,
+    this.reviewerName,
+    this.reviewerEmail,
+  });
+
+  factory Review.fromJson(Map<String, dynamic> json) => Review(
+    rating: json["rating"],
+    comment: json["comment"],
+    date: json["date"],
+    reviewerName: json["reviewerName"],
+    reviewerEmail: json["reviewerEmail"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "rating": rating,
+    "comment": comment,
+    "date": date,
+    "reviewerName": reviewerName,
+    "reviewerEmail": reviewerEmail,
   };
 }
