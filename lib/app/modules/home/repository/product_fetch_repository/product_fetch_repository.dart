@@ -4,7 +4,7 @@ import 'package:qtec/app/core/api_list/api_list.dart';
 import 'package:qtec/app/core/constants/constants.dart';
 
 class ProductFetchRepository {
-  Future<Response> fetchProducts() async {
+  Future<Response> fetchProducts(int limit, int skip) async {
     var dio = Dio();
     dio.interceptors.add(
       PrettyDioLogger(
@@ -20,7 +20,7 @@ class ProductFetchRepository {
 
     try {
       var response = await dio.get(
-        "${ApiList.fetchProductsApi}?limit=10&skip=0&select=title,price,discountPercentage,rating,reviews,availabilityStatus,images,thumbnail",
+        "${ApiList.fetchProductsApi}?limit=${limit.toString()}&skip=${skip.toString()}&select=title,price,discountPercentage,rating,reviews,availabilityStatus,images,thumbnail",
       );
       if (response.statusCode == 200) {
         return response;

@@ -21,6 +21,20 @@ class ProductsResponse {
     this.limit,
   });
 
+  ProductsResponse copyWith({
+    List<Product>? products,
+    int? total,
+    int? skip,
+    int? limit,
+  }) {
+    return ProductsResponse(
+      products: products ?? this.products,
+      total: total ?? this.total,
+      skip: skip ?? this.skip,
+      limit: limit ?? this.limit,
+    );
+  }
+
   factory ProductsResponse.fromJson(Map<String, dynamic> json) => ProductsResponse(
     products: json["products"] == null ? [] : List<Product>.from(json["products"]!.map((x) => Product.fromJson(x))),
     total: json["total"],
