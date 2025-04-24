@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:qtec/app/modules/home/view/section/items_view/items_view.dart';
 import 'package:qtec/app/modules/home/view/section/search_view/search_view.dart';
+import 'package:qtec/app/modules/search/view/search_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -21,8 +22,17 @@ class _HomeScreenState extends State<HomeScreen> {
           mainAxisSize: MainAxisSize.min,
           spacing: 10,
           children: [
-            SearchView(),
-            ItemsView()
+            GestureDetector(
+              onTap: () {
+                print("Clicked");
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => SearchScreen()),
+                );
+              },
+              child: SearchView(),
+            ),
+            ItemsView(),
           ],
         ),
       ),
